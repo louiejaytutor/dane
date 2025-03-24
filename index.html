@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dane</title>
+    <link rel="icon" href="static/img/dane.jpg">
+    <link rel="apple-touch-icon" href="static/img/dane.jpg">
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Poppins'>
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/loader.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Dane
+        </div>
+        <div class="top-nav">
+            <a href="javascript:void(0)">For you</a>
+            <a id="following-btn" href="javascript:void(0)">Following</a>
+        </div>
+        <div id="posts" class="posts">
+        </div>
+        <div class="bottom-nav">
+            <a id="home-btn" href="javascript:void(0)"><i class="fas fa-home"></i></a>
+            <a id="profile-btn" href="javascript:void(0)"><i class="fas fa-user-alt"></i></a>
+        </div>
+    </div>
+    <script src="static/js/main.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+        import {
+            getFirestore, collection, getDocs, doc, query, orderBy, addDoc, serverTimestamp, getDoc, updateDoc, deleteDoc
+        } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyACGoc6lsu92SIBil2oA-FEfVkAocIpe00",
+            authDomain: "todo-list-c310f.firebaseapp.com",
+            projectId: "todo-list-c310f",
+            storageBucket: "todo-list-c310f.firebasestorage.app",
+            messagingSenderId: "1954381734",
+            appId: "1:1954381734:web:466c42e5ddbcea8dcd1967",
+            measurementId: "G-2RK9RRWMC2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        getPosts();
+
+        async function getPosts() {
+            const querySnapshot = await getDocs(
+                query(collection(db, "dane-users"), orderBy("timestamp_created", "asc"))
+            );
+            let hasPosts = false;
+            posts.innerHTML = "";
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                hasPosts = true;
+
+                posts.innerHTML = posts.innerHTML + `<div onclick="viewPost('${doc.id}')" class="post">
+                    <div class="post-l-container">
+                        <div class="profile">
+                            <img src="static/img/dane.jpg">
+                        </div>
+                    </div>
+                    <div class="post-r-container">
+                        <div class="name">${data.name}</div>
+                        <div class="username">@${data.username}</div>
+                        <div class="post-date">21 Mar 2025 5:54 pm</div>
+                        <div class="post-timeline">
+                            Dane Pallasigue Santiago Dane Pallasigue Santiago Dane Pallasigue Santiago Dane Pallasigue Santiago Dane Pallasigue Santiago Dane Pallasigue Santiago Dane Pallasigue Santiago
+                        </div>
+                        <div class="post-timeline-action">
+                            <a id="comments-btn" href="javascript:void(0)"><i class="far fa-comment"></i> 100</a>
+                            <a id="heart-btn" href="javascript:void(0)"><i class="far fa-heart"></i> 100</a>
+                        </div>
+                    </div>
+                </div>`;
+            });
+
+            if (!hasPosts || querySnapshot.empty) {
+                posts.innerHTML = `<div class="post">
+                    No posts.
+                </div>`;
+            }
+        }
+    </script>
+</body>
+</html>

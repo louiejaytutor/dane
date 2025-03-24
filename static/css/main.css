@@ -1,0 +1,100 @@
+:root {
+
+}
+
+* {
+    font-family: 'Poppins';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header {
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.top-nav {
+    display: flex;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+.top-nav a {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+}
+
+.posts {
+    max-height: calc(100vh - 195.2px);
+    overflow-y: scroll;
+}
+.post {
+    padding: 10px;
+    display: flex;
+    border-bottom: 2px solid #ddd;
+}
+.post:last-child {
+    border-bottom: none;
+}
+.post-l-container {
+    flex: 0 0 40px;
+    padding: 10px;
+    width: 40px;
+}
+.profile img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.post-r-container {
+    flex: 1;
+    padding: 10px;
+}
+.name {
+    font-weight: bold;
+    display: inline-flex;
+}
+.username {
+    display: inline-flex;
+}
+.post-date {
+    display: inline-flex;
+}
+.post-timeline {
+    width: 100%;
+}
+.post-timeline-action {
+    display: flex;
+}
+.post-timeline-action a {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+}
+
+.bottom-nav {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    padding: 10px;
+    width: calc(100% - 20px);
+    border-top: 2px solid #ddd;
+}
+.bottom-nav a {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+}
