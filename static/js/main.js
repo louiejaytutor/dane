@@ -5,5 +5,5 @@ const posts = document.getElementById("posts");
 // const post = params.get("post");
 
 async function viewPost(post) {
-    window.location.href = `post.html?${post}`;
+    window.location.href = `post?${post}`;
 }
