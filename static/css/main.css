@@ -1,23 +1,41 @@
 :root {
-
+    --pink-1: #F6A6BB;
+    --pink-2: #F4BBC9;
+    --pink-3: #F7D1D8;
+    --pink-4: #FAE6E7;
+    --pink-5: #F7EEED;
 }
 
 * {
     font-family: 'Poppins';
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-}
-
-.container {
     position: relative;
     height: 100vh;
     width: 100%;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(var(--pink-1), var(--pink-3));
+}
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
+.container {
+    height: 100vh;
+    width: 100%;
+}
+
+/* HEADER */
 .header {
     text-align: center;
     font-weight: bold;
@@ -27,7 +45,6 @@ body {
 .top-nav {
     display: flex;
     padding: 10px;
-    border-bottom: 2px solid #ddd;
 }
 .top-nav a {
     text-align: center;
@@ -35,17 +52,19 @@ body {
     padding: 10px;
 }
 
+/* BODY */
 .posts {
+    min-height: calc(100vh - 195.2px);
     max-height: calc(100vh - 195.2px);
     overflow-y: scroll;
 }
 .post {
+    margin: 10px;
     padding: 10px;
     display: flex;
-    border-bottom: 2px solid #ddd;
-}
-.post:last-child {
-    border-bottom: none;
+    border-radius: 10px;
+    background: white;
+    box-shadow: rgba(100, 100, 111, 0.15) 0px 7px 29px 0px;
 }
 .post-l-container {
     flex: 0 0 40px;
@@ -53,6 +72,7 @@ body {
     width: 40px;
 }
 .profile img {
+    cursor: pointer;
     height: 40px;
     width: 40px;
     object-fit: cover;
@@ -63,6 +83,7 @@ body {
     padding: 10px;
 }
 .name {
+    cursor: pointer;
     font-weight: bold;
     display: inline-flex;
 }
@@ -84,6 +105,7 @@ body {
     padding: 10px;
 }
 
+/* FOOTER */
 .bottom-nav {
     position: absolute;
     left: 0;
@@ -91,10 +113,38 @@ body {
     display: flex;
     padding: 10px;
     width: calc(100% - 20px);
-    border-top: 2px solid #ddd;
 }
 .bottom-nav a {
     text-align: center;
     flex: 1;
     padding: 10px;
+}
+
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 1000;
+}
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+.show {
+    display: block;
 }
