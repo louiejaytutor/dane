@@ -240,7 +240,6 @@
         window.DeletePost = async function DeletePost(post) {
             if (confirm("Are you sure you want to permanently delete this post?")) {
                 ShowLoader();
-                container.html("");
 
                 const postRef = doc(db, "dane-posts", post);
                 await deleteDoc(postRef);
@@ -253,6 +252,31 @@
                 });
 
                 PostContainer();
+            }
+        }
+
+        window.GetEditPost = async function GetEditPost(post) {
+            const postRef = doc(db, "dane-posts", post);
+            const postSnap = await getDoc(postRef);
+            if (postSnap.exists()) {
+                const data = postSnap.data();
+
+                const userRef = doc(db, "dane-users", data.user_id);
+                const userSnap = await getDoc(userRef);
+                if (userSnap.exists()) {
+                    const user = userSnap.data();
+
+                    const post_detail = {
+                        post_id: post,
+                        user_id: data.user_id,
+                        profile: user.profile,
+                        name: user.name,
+                        username: user.username,
+                        timestamp_created: data.timestamp_created,
+                        timeline: data.timeline,
+                    };
+                    return post_detail;
+                }
             }
         }
     </script>
