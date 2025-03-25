@@ -11,8 +11,8 @@
     background: linear-gradient(var(--pink-1), var(--pink-3));
 }
 .loader svg {
-    height: 300px;
-    width: 400px;
+    height: 100px;
+    width: 200px;
 }
 #outline {
     stroke-dasharray: 2.42777px, 242.77666px;

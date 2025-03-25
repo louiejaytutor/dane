@@ -95,17 +95,17 @@
                 const userRef = doc(db, "dane-users", post.user_id);
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
-                    const user = userSnap.data();
+                    const post_user = userSnap.data();
 
                     let post_detail = `<div class="post">
                         <div class="post-l-container">
                             <div onclick="ViewProfile('${post.user_id}')" class="profile">
-                                <img src="static/img/dane.jpg">
+                                <img src="static/img/profiles/${post_user.profile}">
                             </div>
                         </div>
                         <div class="post-r-container">
-                            <div onclick="ViewProfile('${post.user_id}')" class="name">${user.name}</div>
-                            <div class="username">@${user.username}</div>
+                            <div onclick="ViewProfile('${post.user_id}')" class="name">${post_user.name}</div>
+                            <div class="username">@${post_user.username}</div>
                             <div class="post-date">${formatTimestamp(post.timestamp_created)}</div>
                             <div class="post-timeline">${post.timeline}</div>
                             <div class="post-timeline-action">
@@ -113,13 +113,13 @@
                                 <a id="${data.id}" onclick="LikePost('${data.id}')">` + await LikePostUI(data.id)+ `</a>
                             </div>
                         </div>
-                        <div class="dropdown">
+                        ${post.user_id == user ? `<div class="dropdown">
                             <a onclick="toggleDropdown(this)"><i class="fas fa-ellipsis-v"></i></a>
                             <div class="dropdown-content">
                                 <a onclick="EditPost('${data.id}')"><i class="fas fa-pencil-alt"></i> Edit</a>
                                 <a onclick="DeletePost('${data.id}')"><i class="fas fa-trash-alt"></i> Delete</a>
                             </div>
-                        </div>
+                        </div>` : "" }
                     </div>`;
                     posts.append(post_detail);
                 }
@@ -144,6 +144,7 @@
                     const post_detail = {
                         post_id: post,
                         user_id: data.user_id,
+                        profile: user.profile,
                         name: user.name,
                         username: user.username,
                         timestamp_created: data.timestamp_created,
@@ -234,6 +235,25 @@
             const querySnapshot = await getDocs(q);
 
             return querySnapshot.size;
+        }
+
+        window.DeletePost = async function DeletePost(post) {
+            if (confirm("Are you sure you want to permanently delete this post?")) {
+                ShowLoader();
+                container.html("");
+
+                const postRef = doc(db, "dane-posts", post);
+                await deleteDoc(postRef);
+
+                const likeRef = collection(db, "dane-likes");
+                const q = query(likeRef, where("post_id", "==", post));
+                const querySnapshot = await getDocs(q);
+                querySnapshot.forEach(async (docSnap) => {
+                    await deleteDoc(doc(db, "dane-likes", docSnap.id));
+                });
+
+                PostContainer();
+            }
         }
     </script>
 </body>

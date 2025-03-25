@@ -88,7 +88,7 @@ async function ViewPost(post) {
     <div class="post">
         <div class="post-l-container">
             <div onclick="ViewProfile('${postData.user_id}')" class="profile">
-                <img src="static/img/dane.jpg">
+                <img src="static/img/profiles/${postData.profile}">
             </div>
         </div>
         <div class="post-r-container">
@@ -101,13 +101,13 @@ async function ViewPost(post) {
                 <a id="${postData.post_id}" onclick="LikePost('${postData.post_id}')">` + await LikePostUI(postData.post_id)+ `</a>
             </div>
         </div>
-        <div class="dropdown">
+        ${postData.user_id == user ? `<div class="dropdown">
             <a onclick="toggleDropdown(this)"><i class="fas fa-ellipsis-v"></i></a>
             <div class="dropdown-content">
                 <a onclick="EditPost('${postData.post_id}')"><i class="fas fa-pencil-alt"></i> Edit</a>
                 <a onclick="DeletePost('${postData.post_id}')"><i class="fas fa-trash-alt"></i> Delete</a>
             </div>
-        </div>
+        </div>` : "" }
     </div>
     <script>
         document.title = '${postData.name} on Dane: "${postData.timeline}" / Dane';
