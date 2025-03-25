@@ -52,8 +52,8 @@ async function PostContainer() {
 
 async function LoginContainer() {
     const loginContainer = `<div class="login-container">
-        <input type="text" id="username" autocomplete="off">
-        <input type="password" id="password">
+        <input type="text" id="username" placeholder="Username" autocomplete="off">
+        <input type="password" id="password" placeholder="Password">
         <button onclick="LoginUser()">Login</button>
     </div>
     <script>
@@ -69,7 +69,7 @@ async function CreatePost() {
     
     const createPostContainer = `<div class="create-post-container">
         <button onclick="ShowLoader(); PostContainer();"><i class="fas fa-times"></i></button>
-        <input type="text" id="timeline" autocomplete="off">
+        <input type="text" id="timeline" placeholder="What's" autocomplete="off">
         <button onclick="SubmitPost()">Post</button>
     </div>
     <script>
