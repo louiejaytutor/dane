@@ -69,7 +69,7 @@ async function CreatePost() {
     
     const createPostContainer = `<div class="create-post-container">
         <button onclick="ShowLoader(); PostContainer();"><i class="fas fa-times"></i></button>
-        <input type="text" id="timeline" placeholder="What's" autocomplete="off">
+        <input type="text" id="timeline" placeholder="What's on your mind?" autocomplete="off">
         <button onclick="SubmitPost()">Post</button>
     </div>
     <script>
@@ -111,6 +111,35 @@ async function ViewPost(post) {
     </div>
     <script>
         document.title = '${postData.name} on Dane: "${postData.timeline}" / Dane';
+    </script>`;
+    container.html(post_detail);
+
+    RemoveLoader();
+}
+
+async function EditPost(post) {
+    ShowLoader();
+
+    const postData = await GetEditPost(post)
+    let post_detail = `<button onclick="ShowLoader(); PostContainer();"><i class="fas fa-arrow-left"></i></button> Edit Post
+    <div class="post">
+        <div class="post-l-container">
+            <div onclick="ViewProfile('${postData.user_id}')" class="profile">
+                <img src="static/img/profiles/${postData.profile}">
+            </div>
+        </div>
+        <div class="post-r-container">
+            <div onclick="ViewProfile('${postData.user_id}')" class="name">${postData.name}</div>
+            <div class="username">@${postData.username}</div>
+            <div class="post-date">${formatTimestamp(postData.timestamp_created)}</div>
+            <div class="post-timeline"><input type="text" id="timeline" value="${postData.timeline}" placeholder="What's on your mind?" autocomplete="off"></div>
+            <div class="post-timeline-action">
+                <button onclick="SubmitEditPost('${postData.post_id}')">Update</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.title = "Edit Post / Dane";
     </script>`;
     container.html(post_detail);
 
